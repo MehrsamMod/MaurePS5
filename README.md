@@ -7,11 +7,11 @@ Most of the code written by **Claude or Grok**. If you don't like AI code i don'
 ## Goal
 
 Our goal for MaurePS5 is **run PS5 games without a powerful PC**.
-Main platform for MaruePS5 is Windows. More platforms such as **Linux, MacOS or Android** will be added later in development.
+Main platform for MaurePS5 is Windows. More platforms such as **Linux, MacOS or Android** will be added later in development.
 
 ## Status
 
-MaruePS5 has a **command processor and a memory tracker**. More code will be added soon.
+MaurePS5 has a **command processor and a memory tracker**. More code will be added soon.
 
 ## Legal
 
