@@ -3,7 +3,7 @@ A experimental PS5 Translation layer for Windows, MacOS and Linux
 
 # Disclaimer
 
-Most of the code written by **Claude or Grok**. If you don't like ai code i don't really care just dont download the emulator, However that does not mean everything is ai a human must review everything and that doesn't mean ai is writing the emulator, SOme part is written by a human(not yet).
+Most of the code written by **Claude or Grok**. If you don't like AI code i don't really care just dont download the emulator, However that does not mean everything is AI a human must review everything and that doesn't mean AI is writing the emulator, Some parts is written by a human (not yet).
 ## Goal
 
 Our goal for MaurePS5 is no **run PS5 games without a powerful PC**.
