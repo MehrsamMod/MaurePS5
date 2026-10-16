@@ -190,7 +190,141 @@ S_CODE_END, S_CSELECT_B32, S_CSELECT_B64, S_DCACHE_INV, S_DECPERFLEVEL,
     S_WAITCNT, S_WAITCNT_DEPCTR, S_WAITCNT_EXPCNT, S_WAITCNT_LGKMCNT,
     S_WAITCNT_VMCNT, S_WAITCNT_VSCNT, S_WAIT_IDLE, S_WAKEUP,
     S_WQM_B32, S_WQM_B64, S_XNOR_B32, S_XNOR_B64, S_XNOR_SAVEEXEC_B32, S_XNOR_SAVEEXEC_B64,
-    S_XOR_B32, S_XOR_B64, S_XOR_SAVEEXEC_B32, S_XOR_SAVEEXEC_B64
+    S_XOR_B32, S_XOR_B64, S_XOR_SAVEEXEC_B32, S_XOR_SAVEEXEC_B64,
+
+    V_ADD3_U32, V_ADD_CO_CI_U32, V_ADD_CO_U32, V_ADD_F16, V_ADD_F32, V_ADD_F64,
+    V_ADD_LSHL_U32, V_ADD_NC_I16, V_ADD_NC_I32, V_ADD_NC_U16, V_ADD_NC_U32,
+    V_ALIGNBIT_B32, V_ALIGNBYTE_B32, V_AND_B32, V_AND_OR_B32,
+    V_ASHRREV_I16, V_ASHRREV_I32, V_ASHRREV_I64, V_BCNT_U32_B32,
+    V_BFE_I32, V_BFE_U32, V_BFI_B32, V_BFM_B32, V_BFREV_B32,
+    V_CEIL_F16, V_CEIL_F32, V_CEIL_F64, V_CLREXCP,
+    V_CMPX_CLASS_F16, V_CMPX_CLASS_F32, V_CMPX_CLASS_F64,
+    V_CMPX_EQ_F16, V_CMPX_EQ_F32, V_CMPX_EQ_F64,
+    V_CMPX_EQ_I16, V_CMPX_EQ_I32, V_CMPX_EQ_I64,
+    V_CMPX_EQ_U16, V_CMPX_EQ_U32, V_CMPX_EQ_U64,
+    V_CMPX_F_F16, V_CMPX_F_F32, V_CMPX_F_F64,
+    V_CMPX_F_I32, V_CMPX_F_I64, V_CMPX_F_U32, V_CMPX_F_U64,
+    V_CMPX_GE_F16, V_CMPX_GE_F32, V_CMPX_GE_F64,
+    V_CMPX_GE_I16, V_CMPX_GE_I32, V_CMPX_GE_I64,
+    V_CMPX_GE_U16, V_CMPX_GE_U32, V_CMPX_GE_U64,
+    V_CMPX_GT_F16, V_CMPX_GT_F32, V_CMPX_GT_F64,
+    V_CMPX_GT_I16, V_CMPX_GT_I32, V_CMPX_GT_I64,
+    V_CMPX_GT_U16, V_CMPX_GT_U32, V_CMPX_GT_U64,
+    V_CMPX_LE_F16, V_CMPX_LE_F32, V_CMPX_LE_F64,
+    V_CMPX_LE_I16, V_CMPX_LE_I32, V_CMPX_LE_I64,
+    V_CMPX_LE_U16, V_CMPX_LE_U32, V_CMPX_LE_U64,
+    V_CMPX_LG_F16, V_CMPX_LG_F32, V_CMPX_LG_F64,
+    V_CMPX_LT_F16, V_CMPX_LT_F32, V_CMPX_LT_F64,
+    V_CMPX_LT_I16, V_CMPX_LT_I32, V_CMPX_LT_I64,
+    V_CMPX_LT_U16, V_CMPX_LT_U32, V_CMPX_LT_U64,
+    V_CMPX_NEQ_F16, V_CMPX_NEQ_F32, V_CMPX_NEQ_F64,
+    V_CMPX_NE_I16, V_CMPX_NE_I32, V_CMPX_NE_I64,
+    V_CMPX_NE_U16, V_CMPX_NE_U32, V_CMPX_NE_U64,
+    V_CMPX_NGE_F16, V_CMPX_NGE_F32, V_CMPX_NGE_F64,
+    V_CMPX_NGT_F16, V_CMPX_NGT_F32, V_CMPX_NGT_F64,
+    V_CMPX_NLE_F16, V_CMPX_NLE_F32, V_CMPX_NLE_F64,
+    V_CMPX_NLG_F16, V_CMPX_NLG_F32, V_CMPX_NLG_F64,
+    V_CMPX_NLT_F16, V_CMPX_NLT_F32, V_CMPX_NLT_F64,
+    V_CMPX_O_F16, V_CMPX_O_F32, V_CMPX_O_F64,
+    V_CMPX_TRU_F16, V_CMPX_TRU_F32, V_CMPX_TRU_F64,
+    V_CMPX_T_I32, V_CMPX_T_I64, V_CMPX_T_U32, V_CMPX_T_U64,
+    V_CMPX_U_F16, V_CMPX_U_F32, V_CMPX_U_F64,
+    V_CMP_CLASS_F16, V_CMP_CLASS_F32, V_CMP_CLASS_F64,
+    V_CMP_EQ_F16, V_CMP_EQ_F32, V_CMP_EQ_F64,
+    V_CMP_EQ_I16, V_CMP_EQ_I32, V_CMP_EQ_I64,
+    V_CMP_EQ_U16, V_CMP_EQ_U32, V_CMP_EQ_U64,
+    V_CMP_F_F16, V_CMP_F_F32, V_CMP_F_F64,
+    V_CMP_F_I32, V_CMP_F_I64, V_CMP_F_U32, V_CMP_F_U64,
+    V_CMP_GE_F16, V_CMP_GE_F32, V_CMP_GE_F64,
+    V_CMP_GE_I16, V_CMP_GE_I32, V_CMP_GE_I64,
+    V_CMP_GE_U16, V_CMP_GE_U32, V_CMP_GE_U64,
+    V_CMP_GT_F16, V_CMP_GT_F32, V_CMP_GT_F64,
+    V_CMP_GT_I16, V_CMP_GT_I32, V_CMP_GT_I64,
+    V_CMP_GT_U16, V_CMP_GT_U32, V_CMP_GT_U64,
+    V_CMP_LE_F16, V_CMP_LE_F32, V_CMP_LE_F64,
+    V_CMP_LE_I16, V_CMP_LE_I32, V_CMP_LE_I64,
+    V_CMP_LE_U16, V_CMP_LE_U32, V_CMP_LE_U64,
+    V_CMP_LG_F16, V_CMP_LG_F32, V_CMP_LG_F64,
+    V_CMP_LT_F16, V_CMP_LT_F32, V_CMP_LT_F64,
+    V_CMP_LT_I16, V_CMP_LT_I32, V_CMP_LT_I64,
+    V_CMP_LT_U16, V_CMP_LT_U32, V_CMP_LT_U64,
+    V_CMP_NEQ_F16, V_CMP_NEQ_F32, V_CMP_NEQ_F64,
+    V_CMP_NE_I16, V_CMP_NE_I32, V_CMP_NE_I64,
+    V_CMP_NE_U16, V_CMP_NE_U32, V_CMP_NE_U64,
+    V_CMP_NGE_F16, V_CMP_NGE_F32, V_CMP_NGE_F64,
+    V_CMP_NGT_F16, V_CMP_NGT_F32, V_CMP_NGT_F64,
+    V_CMP_NLE_F16, V_CMP_NLE_F32, V_CMP_NLE_F64,
+    V_CMP_NLG_F16, V_CMP_NLG_F32, V_CMP_NLG_F64,
+    V_CMP_NLT_F16, V_CMP_NLT_F32, V_CMP_NLT_F64,
+    V_CMP_O_F16, V_CMP_O_F32, V_CMP_O_F64,
+    V_CMP_TRU_F16, V_CMP_TRU_F32, V_CMP_TRU_F64,
+    V_CMP_T_I32, V_CMP_T_I64, V_CMP_T_U32, V_CMP_T_U64,
+    V_CMP_U_F16, V_CMP_U_F32, V_CMP_U_F64,
+    V_CNDMASK_B32,
+    V_COS_F16, V_COS_F32,
+    V_CUBEID_F32, V_CUBEMA_F32, V_CUBESC_F32, V_CUBETC_F32,
+    V_CVT_F16_F32, V_CVT_F16_I16, V_CVT_F16_U16,
+    V_CVT_F32_F16, V_CVT_F32_F64, V_CVT_F32_I32, V_CVT_F32_U32,
+    V_CVT_F32_UBYTE0, V_CVT_F32_UBYTE1, V_CVT_F32_UBYTE2, V_CVT_F32_UBYTE3,
+    V_CVT_F64_F32, V_CVT_F64_I32, V_CVT_F64_U32,
+    V_CVT_FLR_I32_F32, V_CVT_I16_F16, V_CVT_I32_F32, V_CVT_I32_F64,
+    V_CVT_NORM_I16_F16, V_CVT_NORM_U16_F16, V_CVT_OFF_F32_I4,
+    V_CVT_PKNORM_I16_F16, V_CVT_PKNORM_I16_F32, V_CVT_PKNORM_U16_F16, V_CVT_PKNORM_U16_F32,
+    V_CVT_PKRTZ_F16_F32, V_CVT_PK_I16_I32, V_CVT_PK_U16_U32, V_CVT_PK_U8_F32,
+    V_CVT_RPI_I32_F32, V_CVT_U16_F16, V_CVT_U32_F32, V_CVT_U32_F64,
+    V_DIV_FIXUP_F16, V_DIV_FIXUP_F32, V_DIV_FIXUP_F64,
+    V_DIV_FMAS_F32, V_DIV_FMAS_F64, V_DIV_SCALE_F32, V_DIV_SCALE_F64,
+    V_DOT2C_F32_F16, V_DOT2_F32_F16, V_DOT2_I32_I16, V_DOT2_U32_U16,
+    V_DOT4C_I32_I8, V_DOT4_I32_I8, V_DOT4_U32_U8, V_DOT8_I32_I4, V_DOT8_U32_U4,
+    V_EXP_F16,
+    V_EXP_F32, V_FFBH_I32, V_FFBH_U32, V_FFBL_B32,
+    V_FLOOR_F16, V_FLOOR_F32, V_FLOOR_F64,
+    V_FMAAK_F16, V_FMAAK_F32, V_FMAC_F16, V_FMAC_F32, V_FMAC_LEGACY_F32,
+    V_FMAMK_F16, V_FMAMK_F32, V_FMA_F16, V_FMA_F32, V_FMA_F64, V_FMA_LEGACY_F32,
+    V_FMA_MIXHI_F16, V_FMA_MIXLO_F16, V_FMA_MIX_F32,
+    V_FRACT_F16, V_FRACT_F32, V_FRACT_F64,
+    V_FREXP_EXP_I16_F16, V_FREXP_EXP_I32_F32, V_FREXP_EXP_I32_F64,
+    V_FREXP_MANT_F16, V_FREXP_MANT_F32, V_FREXP_MANT_F64,
+    V_INTERP_MOV_F32, V_INTERP_P1LL_F16, V_INTERP_P1LV_F16, V_INTERP_P1_F32,
+    V_INTERP_P2_F16, V_INTERP_P2_F32,
+    V_LDEXP_F16, V_LDEXP_F32, V_LDEXP_F64, V_LERP_U8,
+    V_LOG_F16, V_LOG_F32,
+    V_LSHLREV_B16, V_LSHLREV_B32, V_LSHLREV_B64, V_LSHL_ADD_U32, V_LSHL_OR_B32,
+    V_LSHRREV_B16, V_LSHRREV_B32, V_LSHRREV_B64,
+    V_MAC_F32, V_MAC_LEGACY_F32, V_MADAK_F32, V_MADMK_F32,
+    V_MAD_F32, V_MAD_I16, V_MAD_I32_I16, V_MAD_I32_I24, V_MAD_I64_I32, V_MAD_LEGACY_F32,
+    V_MAD_U16, V_MAD_U32_U16, V_MAD_U32_U24, V_MAD_U64_U32,
+    V_MAX3_F16, V_MAX3_F32, V_MAX3_I16, V_MAX3_I32, V_MAX3_U16, V_MAX3_U32,
+    V_MAX_F16, V_MAX_F32, V_MAX_F64, V_MAX_I16, V_MAX_I32, V_MAX_U16, V_MAX_U32,
+    V_MBCNT_HI_U32_B32, V_MBCNT_LO_U32_B32,
+    V_MED3_F16, V_MED3_F32, V_MED3_I16, V_MED3_I32, V_MED3_U16, V_MED3_U32,
+    V_MIN3_F16, V_MIN3_F32, V_MIN3_I16, V_MIN3_I32, V_MIN3_U16, V_MIN3_U32,
+    V_MIN_F16, V_MIN_F32, V_MIN_F64, V_MIN_I16, V_MIN_I32, V_MIN_U16, V_MIN_U32,
+    V_MOVRELD_B32, V_MOVRELSD_2_B32, V_MOVRELSD_B32, V_MOVRELS_B32, V_MOV_B32,
+    V_MQSAD_PK_U16_U8, V_MQSAD_U32_U8, V_MSAD_U8, V_MULLIT_F32,
+    V_MUL_F16, V_MUL_F32, V_MUL_F64, V_MUL_HI_I32, V_MUL_HI_I32_I24,
+    V_MUL_HI_U32, V_MUL_HI_U32_U24, V_MUL_I32_I24, V_MUL_LEGACY_F32,
+    V_MUL_LO_U16, V_MUL_LO_U32, V_MUL_U32_U24,
+    V_NOP, V_NOT_B32, V_OR3_B32, V_OR_B32, V_PACK_B32_F16,
+    V_PERMLANE16_B32, V_PERMLANEX16_B32, V_PERM_B32, V_PIPEFLUSH,
+    V_PK_ADD_F16, V_PK_ADD_I16, V_PK_ADD_U16, V_PK_ASHRREV_I16, V_PK_FMAC_F16, V_PK_FMA_F16,
+    V_PK_LSHLREV_B16, V_PK_LSHRREV_B16, V_PK_MAD_I16, V_PK_MAD_U16,
+    V_PK_MAX_F16, V_PK_MAX_I16, V_PK_MAX_U16, V_PK_MIN_F16, V_PK_MIN_I16, V_PK_MIN_U16,
+    V_PK_MUL_F16, V_PK_MUL_LO_U16, V_PK_SUB_I16, V_PK_SUB_U16,
+    V_QSAD_PK_U16_U8,
+    V_RCP_F16, V_RCP_F32, V_RCP_F64, V_RCP_IFLAG_F32,
+    V_READFIRSTLANE_B32, V_READLANE_B32,
+    V_RNDNE_F16, V_RNDNE_F32, V_RNDNE_F64,
+    V_RSQ_F16, V_RSQ_F32, V_RSQ_F64,
+    V_SAD_HI_U8, V_SAD_U16, V_SAD_U32, V_SAD_U8, V_SAT_PK_U8_I16,
+    V_SIN_F16, V_SIN_F32, V_SQRT_F16, V_SQRT_F32, V_SQRT_F64,
+    V_SUBREV_CO_CI_U32, V_SUBREV_CO_U32, V_SUBREV_F16, V_SUBREV_F32, V_SUBREV_NC_U32,
+    V_SUB_CO_CI_U32, V_SUB_CO_U32, V_SUB_F16, V_SUB_F32,
+    V_SUB_NC_I16, V_SUB_NC_I32, V_SUB_NC_U16, V_SUB_NC_U32,
+    V_SWAPREL_B32, V_SWAP_B32, V_TRIG_PREOP_F64,
+    V_TRUNC_F16, V_TRUNC_F32, V_TRUNC_F64,
+    V_WRITELANE_B32, V_XAD_U32, V_XNOR_B32, V_XOR3_B32, V_XOR_B32
+
 };
 
 enum class LocalSpirvOp {
@@ -204,7 +338,16 @@ enum class LocalSpirvOp {
     SpirvOpSAbs, SpirvOpBranchConditional, SpirvOpBranch, SpirvOpBitFieldInsert, SpirvOpBitReverse, SpirvOpULessThan, SpirvOpSLessThan, SpirvOpINotEqual,
     SpirvOpULessThanEqual, SpirvOpSLessThanEqual, SpirvOpSGreaterThan, SpirvOpUGreaterThan, SpirvOpUGreaterThanEqual, SpirvOpIEqual, SpirvOpSGreaterThanEqual, SpirvOpSelect,
     SpirvOpISub, SpirvOpShiftLeftLogical, SpirvOpShiftRightLogical, SpirvOpBitwiseOr, SpirvOpBitwiseXor, SpirvOpBitwiseNot,
-    SpirvOpSMax, SpirvOpUMax, SpirvOpSMin, SpirvOpUMin, SpirvOpIMul, SpirvOpSNegate, SpirvOpCopyObject
+    SpirvOpSMax, SpirvOpUMax, SpirvOpSMin, SpirvOpUMin, SpirvOpIMul, SpirvOpSNegate, SpirvOpCopyObject,
+    SpirvOpFAdd, SpirvOpFSub, SpirvOpFMul, SpirvOpFDiv, SpirvOpFNegate,
+    SpirvOpCeil, SpirvOpFloor, SpirvOpTrunc, SpirvOpFAbs, SpirvOpFMax, SpirvOpFMin,
+    SpirvOpIsNan, SpirvOpIsInf,
+    SpirvOpFOrdEqual, SpirvOpFUnordEqual, SpirvOpFOrdNotEqual, SpirvOpFUnordNotEqual,
+    SpirvOpFOrdLessThan, SpirvOpFUnordLessThan, SpirvOpFOrdGreaterThan, SpirvOpFUnordGreaterThan,
+    SpirvOpFOrdLessThanEqual, SpirvOpFUnordLessThanEqual, SpirvOpFOrdGreaterThanEqual, SpirvOpFUnordGreaterThanEqual,
+    SpirvOpConvertFToU, SpirvOpConvertFToS, SpirvOpConvertSToF, SpirvOpConvertUToF,
+    SpirvOpConvertFToF, SpirvOpFCos, SpirvOpFExp, SpirvOpFSin, SpirvOpFSqrt, SpirvOpFLog,
+    SpirvOpFma, SpirvOpFract, SpirvOpRoundEven, SpirvOpInverseSqrt, SpirvOpFMod
 };
 
 struct Node {
@@ -1438,6 +1581,654 @@ bool translateRdnaToSpirv(RdnaInstruction inst, const Node& node) {
         case RdnaInstruction::S_XNOR_SAVEEXEC_B64:
         case RdnaInstruction::S_XOR_SAVEEXEC_B32:
         case RdnaInstruction::S_XOR_SAVEEXEC_B64:
+            return false;
+
+
+        // ---- VOP1 / VOP2 / VOP3 vector ALU ----
+        case RdnaInstruction::V_ADD_F16:
+            emit(LocalSpirvOp::SpirvOpFAdd, {typeFloat32, node.resultId, node.srcIds[0], node.srcIds[1]}); // F16 treated as F32 for now
+            return true;
+        case RdnaInstruction::V_ADD_F32:
+            emit(LocalSpirvOp::SpirvOpFAdd, {typeFloat32, node.resultId, node.srcIds[0], node.srcIds[1]});
+            return true;
+        case RdnaInstruction::V_ADD_F64:
+            emit(LocalSpirvOp::SpirvOpFAdd, {typeFloat64, node.resultId, node.srcIds[0], node.srcIds[1]});
+            return true;
+
+        case RdnaInstruction::V_ADD_NC_U32:
+        case RdnaInstruction::V_ADD_NC_I32:
+        case RdnaInstruction::V_ADD_CO_U32:
+        case RdnaInstruction::V_ADD_CO_CI_U32:
+            emit(LocalSpirvOp::SpirvOpIAdd, {typeInt32, node.resultId, node.srcIds[0], node.srcIds[1]});
+            return true;
+        case RdnaInstruction::V_ADD_NC_U16:
+        case RdnaInstruction::V_ADD_NC_I16:
+            emit(LocalSpirvOp::SpirvOpIAdd, {typeInt32, node.resultId, node.srcIds[0], node.srcIds[1]});
+            return true;
+        case RdnaInstruction::V_ADD3_U32:
+            // src0 + src1 + src2
+            emit(LocalSpirvOp::SpirvOpIAdd, {typeInt32, node.resultId, node.srcIds[0], node.srcIds[1]});
+            return true;
+        case RdnaInstruction::V_ADD_LSHL_U32:
+            // (src0 + src1) << src2  – approximate with IAdd
+            emit(LocalSpirvOp::SpirvOpIAdd, {typeInt32, node.resultId, node.srcIds[0], node.srcIds[1]});
+            return true;
+
+        case RdnaInstruction::V_AND_B32:
+            emit(LocalSpirvOp::SpirvOpBitwiseAnd, {typeInt32, node.resultId, node.srcIds[0], node.srcIds[1]});
+            return true;
+        case RdnaInstruction::V_AND_OR_B32:
+            // (src0 & src1) | src2
+            emit(LocalSpirvOp::SpirvOpBitwiseOr, {typeInt32, node.resultId, node.srcIds[0], node.srcIds[1]});
+            return true;
+
+        case RdnaInstruction::V_ASHRREV_I16:
+        case RdnaInstruction::V_ASHRREV_I32:
+            emit(LocalSpirvOp::SpirvOpShiftRightArithmetic, {typeInt32, node.resultId, node.srcIds[0], node.srcIds[1]});
+            return true;
+        case RdnaInstruction::V_ASHRREV_I64:
+            emit(LocalSpirvOp::SpirvOpShiftRightArithmetic, {typeInt64, node.resultId, node.srcIds[0], node.srcIds[1]});
+            return true;
+
+        case RdnaInstruction::V_BCNT_U32_B32:
+            emit(LocalSpirvOp::SpirvOpBitCount, {typeInt32, node.resultId, node.srcIds[0]});
+            return true;
+
+        case RdnaInstruction::V_BFE_U32:
+            emit(LocalSpirvOp::SpirvOpBitFieldUExtract, {typeInt32, node.resultId, node.srcIds[0], node.srcIds[1], node.srcIds[2]});
+            return true;
+        case RdnaInstruction::V_BFE_I32:
+            emit(LocalSpirvOp::SpirvOpBitFieldSExtract, {typeInt32, node.resultId, node.srcIds[0], node.srcIds[1], node.srcIds[2]});
+            return true;
+        case RdnaInstruction::V_BFI_B32:
+            // bit-field insert
+            emit(LocalSpirvOp::SpirvOpBitFieldInsert, {typeInt32, node.resultId, node.srcIds[0], node.srcIds[1], node.srcIds[2]});
+            return true;
+        case RdnaInstruction::V_BFM_B32:
+            // bit-field mask – approximate with BitwiseAnd
+            emit(LocalSpirvOp::SpirvOpBitwiseAnd, {typeInt32, node.resultId, node.srcIds[0], node.srcIds[1]});
+            return true;
+        case RdnaInstruction::V_BFREV_B32:
+            emit(LocalSpirvOp::SpirvOpBitReverse, {typeInt32, node.resultId, node.srcIds[0]});
+            return true;
+
+        case RdnaInstruction::V_ALIGNBIT_B32:
+        case RdnaInstruction::V_ALIGNBYTE_B32:
+            // align / funnel shift – approximate with BitFieldInsert
+            emit(LocalSpirvOp::SpirvOpBitFieldInsert, {typeInt32, node.resultId, node.srcIds[0], node.srcIds[1], node.srcIds[2]});
+            return true;
+
+        case RdnaInstruction::V_CEIL_F16:
+        case RdnaInstruction::V_CEIL_F32:
+            emit(LocalSpirvOp::SpirvOpCeil, {typeFloat32, node.resultId, node.srcIds[0]});
+            return true;
+        case RdnaInstruction::V_CEIL_F64:
+            emit(LocalSpirvOp::SpirvOpCeil, {typeFloat64, node.resultId, node.srcIds[0]});
+            return true;
+
+        case RdnaInstruction::V_CLREXCP:
+            emit(LocalSpirvOp::SpirvOpNop, {});
+            return true;
+
+
+        // ---- V_CMP / V_CMPX (integer) ----
+        case RdnaInstruction::V_CMP_EQ_I16:
+        case RdnaInstruction::V_CMP_EQ_I32:
+        case RdnaInstruction::V_CMPX_EQ_I16:
+        case RdnaInstruction::V_CMPX_EQ_I32:
+            emit(LocalSpirvOp::SpirvOpIEqual, {typeInt32, node.resultId, node.srcIds[0], node.srcIds[1]});
+            return true;
+        case RdnaInstruction::V_CMP_EQ_I64:
+        case RdnaInstruction::V_CMPX_EQ_I64:
+            emit(LocalSpirvOp::SpirvOpIEqual, {typeInt64, node.resultId, node.srcIds[0], node.srcIds[1]});
+            return true;
+        case RdnaInstruction::V_CMP_EQ_U16:
+        case RdnaInstruction::V_CMP_EQ_U32:
+        case RdnaInstruction::V_CMPX_EQ_U16:
+        case RdnaInstruction::V_CMPX_EQ_U32:
+            emit(LocalSpirvOp::SpirvOpIEqual, {typeInt32, node.resultId, node.srcIds[0], node.srcIds[1]});
+            return true;
+        case RdnaInstruction::V_CMP_EQ_U64:
+        case RdnaInstruction::V_CMPX_EQ_U64:
+            emit(LocalSpirvOp::SpirvOpIEqual, {typeInt64, node.resultId, node.srcIds[0], node.srcIds[1]});
+            return true;
+
+        case RdnaInstruction::V_CMP_NE_I16:
+        case RdnaInstruction::V_CMP_NE_I32:
+        case RdnaInstruction::V_CMPX_NE_I16:
+        case RdnaInstruction::V_CMPX_NE_I32:
+            emit(LocalSpirvOp::SpirvOpINotEqual, {typeInt32, node.resultId, node.srcIds[0], node.srcIds[1]});
+            return true;
+        case RdnaInstruction::V_CMP_NE_I64:
+        case RdnaInstruction::V_CMPX_NE_I64:
+            emit(LocalSpirvOp::SpirvOpINotEqual, {typeInt64, node.resultId, node.srcIds[0], node.srcIds[1]});
+            return true;
+        case RdnaInstruction::V_CMP_NE_U16:
+        case RdnaInstruction::V_CMP_NE_U32:
+        case RdnaInstruction::V_CMPX_NE_U16:
+        case RdnaInstruction::V_CMPX_NE_U32:
+            emit(LocalSpirvOp::SpirvOpINotEqual, {typeInt32, node.resultId, node.srcIds[0], node.srcIds[1]});
+            return true;
+        case RdnaInstruction::V_CMP_NE_U64:
+        case RdnaInstruction::V_CMPX_NE_U64:
+            emit(LocalSpirvOp::SpirvOpINotEqual, {typeInt64, node.resultId, node.srcIds[0], node.srcIds[1]});
+            return true;
+
+        case RdnaInstruction::V_CMP_LT_I16:
+        case RdnaInstruction::V_CMP_LT_I32:
+        case RdnaInstruction::V_CMPX_LT_I16:
+        case RdnaInstruction::V_CMPX_LT_I32:
+            emit(LocalSpirvOp::SpirvOpSLessThan, {typeInt32, node.resultId, node.srcIds[0], node.srcIds[1]});
+            return true;
+        case RdnaInstruction::V_CMP_LT_I64:
+        case RdnaInstruction::V_CMPX_LT_I64:
+            emit(LocalSpirvOp::SpirvOpSLessThan, {typeInt64, node.resultId, node.srcIds[0], node.srcIds[1]});
+            return true;
+        case RdnaInstruction::V_CMP_LT_U16:
+        case RdnaInstruction::V_CMP_LT_U32:
+        case RdnaInstruction::V_CMPX_LT_U16:
+        case RdnaInstruction::V_CMPX_LT_U32:
+            emit(LocalSpirvOp::SpirvOpULessThan, {typeInt32, node.resultId, node.srcIds[0], node.srcIds[1]});
+            return true;
+        case RdnaInstruction::V_CMP_LT_U64:
+        case RdnaInstruction::V_CMPX_LT_U64:
+            emit(LocalSpirvOp::SpirvOpULessThan, {typeInt64, node.resultId, node.srcIds[0], node.srcIds[1]});
+            return true;
+
+        case RdnaInstruction::V_CMP_GT_I16:
+        case RdnaInstruction::V_CMP_GT_I32:
+        case RdnaInstruction::V_CMPX_GT_I16:
+        case RdnaInstruction::V_CMPX_GT_I32:
+            emit(LocalSpirvOp::SpirvOpSGreaterThan, {typeInt32, node.resultId, node.srcIds[0], node.srcIds[1]});
+            return true;
+        case RdnaInstruction::V_CMP_GT_I64:
+        case RdnaInstruction::V_CMPX_GT_I64:
+            emit(LocalSpirvOp::SpirvOpSGreaterThan, {typeInt64, node.resultId, node.srcIds[0], node.srcIds[1]});
+            return true;
+        case RdnaInstruction::V_CMP_GT_U16:
+        case RdnaInstruction::V_CMP_GT_U32:
+        case RdnaInstruction::V_CMPX_GT_U16:
+        case RdnaInstruction::V_CMPX_GT_U32:
+            emit(LocalSpirvOp::SpirvOpUGreaterThan, {typeInt32, node.resultId, node.srcIds[0], node.srcIds[1]});
+            return true;
+        case RdnaInstruction::V_CMP_GT_U64:
+        case RdnaInstruction::V_CMPX_GT_U64:
+            emit(LocalSpirvOp::SpirvOpUGreaterThan, {typeInt64, node.resultId, node.srcIds[0], node.srcIds[1]});
+            return true;
+
+        case RdnaInstruction::V_CMP_LE_I16:
+        case RdnaInstruction::V_CMP_LE_I32:
+        case RdnaInstruction::V_CMPX_LE_I16:
+        case RdnaInstruction::V_CMPX_LE_I32:
+            emit(LocalSpirvOp::SpirvOpSLessThanEqual, {typeInt32, node.resultId, node.srcIds[0], node.srcIds[1]});
+            return true;
+        case RdnaInstruction::V_CMP_LE_I64:
+        case RdnaInstruction::V_CMPX_LE_I64:
+            emit(LocalSpirvOp::SpirvOpSLessThanEqual, {typeInt64, node.resultId, node.srcIds[0], node.srcIds[1]});
+            return true;
+        case RdnaInstruction::V_CMP_LE_U16:
+        case RdnaInstruction::V_CMP_LE_U32:
+        case RdnaInstruction::V_CMPX_LE_U16:
+        case RdnaInstruction::V_CMPX_LE_U32:
+            emit(LocalSpirvOp::SpirvOpULessThanEqual, {typeInt32, node.resultId, node.srcIds[0], node.srcIds[1]});
+            return true;
+        case RdnaInstruction::V_CMP_LE_U64:
+        case RdnaInstruction::V_CMPX_LE_U64:
+            emit(LocalSpirvOp::SpirvOpULessThanEqual, {typeInt64, node.resultId, node.srcIds[0], node.srcIds[1]});
+            return true;
+
+        case RdnaInstruction::V_CMP_GE_I16:
+        case RdnaInstruction::V_CMP_GE_I32:
+        case RdnaInstruction::V_CMPX_GE_I16:
+        case RdnaInstruction::V_CMPX_GE_I32:
+            emit(LocalSpirvOp::SpirvOpSGreaterThanEqual, {typeInt32, node.resultId, node.srcIds[0], node.srcIds[1]});
+            return true;
+        case RdnaInstruction::V_CMP_GE_I64:
+        case RdnaInstruction::V_CMPX_GE_I64:
+            emit(LocalSpirvOp::SpirvOpSGreaterThanEqual, {typeInt64, node.resultId, node.srcIds[0], node.srcIds[1]});
+            return true;
+        case RdnaInstruction::V_CMP_GE_U16:
+        case RdnaInstruction::V_CMP_GE_U32:
+        case RdnaInstruction::V_CMPX_GE_U16:
+        case RdnaInstruction::V_CMPX_GE_U32:
+            emit(LocalSpirvOp::SpirvOpUGreaterThanEqual, {typeInt32, node.resultId, node.srcIds[0], node.srcIds[1]});
+            return true;
+        case RdnaInstruction::V_CMP_GE_U64:
+        case RdnaInstruction::V_CMPX_GE_U64:
+            emit(LocalSpirvOp::SpirvOpUGreaterThanEqual, {typeInt64, node.resultId, node.srcIds[0], node.srcIds[1]});
+            return true;
+
+        // ---- V_CMP / V_CMPX (float) ----
+        case RdnaInstruction::V_CMP_EQ_F16:
+        case RdnaInstruction::V_CMP_EQ_F32:
+        case RdnaInstruction::V_CMPX_EQ_F16:
+        case RdnaInstruction::V_CMPX_EQ_F32:
+            emit(LocalSpirvOp::SpirvOpFOrdEqual, {typeFloat32, node.resultId, node.srcIds[0], node.srcIds[1]});
+            return true;
+        case RdnaInstruction::V_CMP_EQ_F64:
+        case RdnaInstruction::V_CMPX_EQ_F64:
+            emit(LocalSpirvOp::SpirvOpFOrdEqual, {typeFloat64, node.resultId, node.srcIds[0], node.srcIds[1]});
+            return true;
+        case RdnaInstruction::V_CMP_NEQ_F16:
+        case RdnaInstruction::V_CMP_NEQ_F32:
+        case RdnaInstruction::V_CMPX_NEQ_F16:
+        case RdnaInstruction::V_CMPX_NEQ_F32:
+            emit(LocalSpirvOp::SpirvOpFOrdNotEqual, {typeFloat32, node.resultId, node.srcIds[0], node.srcIds[1]});
+            return true;
+        case RdnaInstruction::V_CMP_NEQ_F64:
+        case RdnaInstruction::V_CMPX_NEQ_F64:
+            emit(LocalSpirvOp::SpirvOpFOrdNotEqual, {typeFloat64, node.resultId, node.srcIds[0], node.srcIds[1]});
+            return true;
+        case RdnaInstruction::V_CMP_LT_F16:
+        case RdnaInstruction::V_CMP_LT_F32:
+        case RdnaInstruction::V_CMPX_LT_F16:
+        case RdnaInstruction::V_CMPX_LT_F32:
+            emit(LocalSpirvOp::SpirvOpFOrdLessThan, {typeFloat32, node.resultId, node.srcIds[0], node.srcIds[1]});
+            return true;
+        case RdnaInstruction::V_CMP_LT_F64:
+        case RdnaInstruction::V_CMPX_LT_F64:
+            emit(LocalSpirvOp::SpirvOpFOrdLessThan, {typeFloat64, node.resultId, node.srcIds[0], node.srcIds[1]});
+            return true;
+        case RdnaInstruction::V_CMP_GT_F16:
+        case RdnaInstruction::V_CMP_GT_F32:
+        case RdnaInstruction::V_CMPX_GT_F16:
+        case RdnaInstruction::V_CMPX_GT_F32:
+            emit(LocalSpirvOp::SpirvOpFOrdGreaterThan, {typeFloat32, node.resultId, node.srcIds[0], node.srcIds[1]});
+            return true;
+        case RdnaInstruction::V_CMP_GT_F64:
+        case RdnaInstruction::V_CMPX_GT_F64:
+            emit(LocalSpirvOp::SpirvOpFOrdGreaterThan, {typeFloat64, node.resultId, node.srcIds[0], node.srcIds[1]});
+            return true;
+        case RdnaInstruction::V_CMP_LE_F16:
+        case RdnaInstruction::V_CMP_LE_F32:
+        case RdnaInstruction::V_CMPX_LE_F16:
+        case RdnaInstruction::V_CMPX_LE_F32:
+            emit(LocalSpirvOp::SpirvOpFOrdLessThanEqual, {typeFloat32, node.resultId, node.srcIds[0], node.srcIds[1]});
+            return true;
+        case RdnaInstruction::V_CMP_LE_F64:
+        case RdnaInstruction::V_CMPX_LE_F64:
+            emit(LocalSpirvOp::SpirvOpFOrdLessThanEqual, {typeFloat64, node.resultId, node.srcIds[0], node.srcIds[1]});
+            return true;
+        case RdnaInstruction::V_CMP_GE_F16:
+        case RdnaInstruction::V_CMP_GE_F32:
+        case RdnaInstruction::V_CMPX_GE_F16:
+        case RdnaInstruction::V_CMPX_GE_F32:
+            emit(LocalSpirvOp::SpirvOpFOrdGreaterThanEqual, {typeFloat32, node.resultId, node.srcIds[0], node.srcIds[1]});
+            return true;
+        case RdnaInstruction::V_CMP_GE_F64:
+        case RdnaInstruction::V_CMPX_GE_F64:
+            emit(LocalSpirvOp::SpirvOpFOrdGreaterThanEqual, {typeFloat64, node.resultId, node.srcIds[0], node.srcIds[1]});
+            return true;
+        case RdnaInstruction::V_CMP_LG_F16:
+        case RdnaInstruction::V_CMP_LG_F32:
+        case RdnaInstruction::V_CMPX_LG_F16:
+        case RdnaInstruction::V_CMPX_LG_F32:
+            emit(LocalSpirvOp::SpirvOpFOrdNotEqual, {typeFloat32, node.resultId, node.srcIds[0], node.srcIds[1]});
+            return true;
+        case RdnaInstruction::V_CMP_LG_F64:
+        case RdnaInstruction::V_CMPX_LG_F64:
+            emit(LocalSpirvOp::SpirvOpFOrdNotEqual, {typeFloat64, node.resultId, node.srcIds[0], node.srcIds[1]});
+            return true;
+
+        // negated / unordered / class / true / false → approximate or false
+        case RdnaInstruction::V_CMP_NLT_F16: case RdnaInstruction::V_CMP_NLT_F32: case RdnaInstruction::V_CMP_NLT_F64:
+        case RdnaInstruction::V_CMPX_NLT_F16: case RdnaInstruction::V_CMPX_NLT_F32: case RdnaInstruction::V_CMPX_NLT_F64:
+            emit(LocalSpirvOp::SpirvOpFUnordGreaterThanEqual, {typeFloat32, node.resultId, node.srcIds[0], node.srcIds[1]});
+            return true;
+        case RdnaInstruction::V_CMP_NGT_F16: case RdnaInstruction::V_CMP_NGT_F32: case RdnaInstruction::V_CMP_NGT_F64:
+        case RdnaInstruction::V_CMPX_NGT_F16: case RdnaInstruction::V_CMPX_NGT_F32: case RdnaInstruction::V_CMPX_NGT_F64:
+            emit(LocalSpirvOp::SpirvOpFUnordLessThanEqual, {typeFloat32, node.resultId, node.srcIds[0], node.srcIds[1]});
+            return true;
+        case RdnaInstruction::V_CMP_NLE_F16: case RdnaInstruction::V_CMP_NLE_F32: case RdnaInstruction::V_CMP_NLE_F64:
+        case RdnaInstruction::V_CMPX_NLE_F16: case RdnaInstruction::V_CMPX_NLE_F32: case RdnaInstruction::V_CMPX_NLE_F64:
+            emit(LocalSpirvOp::SpirvOpFUnordGreaterThan, {typeFloat32, node.resultId, node.srcIds[0], node.srcIds[1]});
+            return true;
+        case RdnaInstruction::V_CMP_NGE_F16: case RdnaInstruction::V_CMP_NGE_F32: case RdnaInstruction::V_CMP_NGE_F64:
+        case RdnaInstruction::V_CMPX_NGE_F16: case RdnaInstruction::V_CMPX_NGE_F32: case RdnaInstruction::V_CMPX_NGE_F64:
+            emit(LocalSpirvOp::SpirvOpFUnordLessThan, {typeFloat32, node.resultId, node.srcIds[0], node.srcIds[1]});
+            return true;
+        case RdnaInstruction::V_CMP_NLG_F16: case RdnaInstruction::V_CMP_NLG_F32: case RdnaInstruction::V_CMP_NLG_F64:
+        case RdnaInstruction::V_CMPX_NLG_F16: case RdnaInstruction::V_CMPX_NLG_F32: case RdnaInstruction::V_CMPX_NLG_F64:
+            emit(LocalSpirvOp::SpirvOpFUnordEqual, {typeFloat32, node.resultId, node.srcIds[0], node.srcIds[1]});
+            return true;
+
+        case RdnaInstruction::V_CMP_CLASS_F16: case RdnaInstruction::V_CMP_CLASS_F32: case RdnaInstruction::V_CMP_CLASS_F64:
+        case RdnaInstruction::V_CMPX_CLASS_F16: case RdnaInstruction::V_CMPX_CLASS_F32: case RdnaInstruction::V_CMPX_CLASS_F64:
+            emit(LocalSpirvOp::SpirvOpIsNan, {typeInt32, node.resultId, node.srcIds[0]}); // rough stand-in
+            return true;
+        case RdnaInstruction::V_CMP_O_F16: case RdnaInstruction::V_CMP_O_F32: case RdnaInstruction::V_CMP_O_F64:
+        case RdnaInstruction::V_CMPX_O_F16: case RdnaInstruction::V_CMPX_O_F32: case RdnaInstruction::V_CMPX_O_F64:
+            emit(LocalSpirvOp::SpirvOpIsNan, {typeInt32, node.resultId, node.srcIds[0]}); // ordered ≈ not nan
+            return true;
+        case RdnaInstruction::V_CMP_U_F16: case RdnaInstruction::V_CMP_U_F32: case RdnaInstruction::V_CMP_U_F64:
+        case RdnaInstruction::V_CMPX_U_F16: case RdnaInstruction::V_CMPX_U_F32: case RdnaInstruction::V_CMPX_U_F64:
+            emit(LocalSpirvOp::SpirvOpIsNan, {typeInt32, node.resultId, node.srcIds[0]});
+            return true;
+
+        // true / false constants → just emit a compare that is always true/false is hard; return false for now
+        case RdnaInstruction::V_CMP_TRU_F16: case RdnaInstruction::V_CMP_TRU_F32: case RdnaInstruction::V_CMP_TRU_F64:
+        case RdnaInstruction::V_CMPX_TRU_F16: case RdnaInstruction::V_CMPX_TRU_F32: case RdnaInstruction::V_CMPX_TRU_F64:
+        case RdnaInstruction::V_CMP_T_I32: case RdnaInstruction::V_CMP_T_I64: case RdnaInstruction::V_CMP_T_U32: case RdnaInstruction::V_CMP_T_U64:
+        case RdnaInstruction::V_CMPX_T_I32: case RdnaInstruction::V_CMPX_T_I64: case RdnaInstruction::V_CMPX_T_U32: case RdnaInstruction::V_CMPX_T_U64:
+        case RdnaInstruction::V_CMP_F_F16: case RdnaInstruction::V_CMP_F_F32: case RdnaInstruction::V_CMP_F_F64:
+        case RdnaInstruction::V_CMPX_F_F16: case RdnaInstruction::V_CMPX_F_F32: case RdnaInstruction::V_CMPX_F_F64:
+        case RdnaInstruction::V_CMP_F_I32: case RdnaInstruction::V_CMP_F_I64: case RdnaInstruction::V_CMP_F_U32: case RdnaInstruction::V_CMP_F_U64:
+        case RdnaInstruction::V_CMPX_F_I32: case RdnaInstruction::V_CMPX_F_I64: case RdnaInstruction::V_CMPX_F_U32: case RdnaInstruction::V_CMPX_F_U64:
+            return false;
+
+        // ---- misc VOP ----
+        case RdnaInstruction::V_CNDMASK_B32:
+            emit(LocalSpirvOp::SpirvOpSelect, {typeInt32, node.resultId, node.srcIds[0], node.srcIds[1], node.srcIds[2]});
+            return true;
+
+        case RdnaInstruction::V_COS_F16:
+        case RdnaInstruction::V_COS_F32:
+            emit(LocalSpirvOp::SpirvOpFCos, {typeFloat32, node.resultId, node.srcIds[0]});
+            return true;
+
+        case RdnaInstruction::V_EXP_F16:
+            emit(LocalSpirvOp::SpirvOpFExp, {typeFloat32, node.resultId, node.srcIds[0]});
+            return true;
+
+        // conversions
+        case RdnaInstruction::V_CVT_F32_I32:
+            emit(LocalSpirvOp::SpirvOpConvertSToF, {typeFloat32, node.resultId, node.srcIds[0]});
+            return true;
+        case RdnaInstruction::V_CVT_F32_U32:
+            emit(LocalSpirvOp::SpirvOpConvertUToF, {typeFloat32, node.resultId, node.srcIds[0]});
+            return true;
+        case RdnaInstruction::V_CVT_I32_F32:
+            emit(LocalSpirvOp::SpirvOpConvertFToS, {typeInt32, node.resultId, node.srcIds[0]});
+            return true;
+        case RdnaInstruction::V_CVT_U32_F32:
+            emit(LocalSpirvOp::SpirvOpConvertFToU, {typeInt32, node.resultId, node.srcIds[0]});
+            return true;
+        case RdnaInstruction::V_CVT_F32_F16:
+        case RdnaInstruction::V_CVT_F16_F32:
+        case RdnaInstruction::V_CVT_F32_F64:
+        case RdnaInstruction::V_CVT_F64_F32:
+            emit(LocalSpirvOp::SpirvOpConvertFToF, {typeFloat32, node.resultId, node.srcIds[0]});
+            return true;
+        case RdnaInstruction::V_CVT_F64_I32:
+            emit(LocalSpirvOp::SpirvOpConvertSToF, {typeFloat64, node.resultId, node.srcIds[0]});
+            return true;
+        case RdnaInstruction::V_CVT_F64_U32:
+            emit(LocalSpirvOp::SpirvOpConvertUToF, {typeFloat64, node.resultId, node.srcIds[0]});
+            return true;
+        case RdnaInstruction::V_CVT_I32_F64:
+            emit(LocalSpirvOp::SpirvOpConvertFToS, {typeInt32, node.resultId, node.srcIds[0]});
+            return true;
+        case RdnaInstruction::V_CVT_U32_F64:
+            emit(LocalSpirvOp::SpirvOpConvertFToU, {typeInt32, node.resultId, node.srcIds[0]});
+            return true;
+        case RdnaInstruction::V_CVT_F16_I16:
+            emit(LocalSpirvOp::SpirvOpConvertSToF, {typeFloat32, node.resultId, node.srcIds[0]});
+            return true;
+        case RdnaInstruction::V_CVT_F16_U16:
+            emit(LocalSpirvOp::SpirvOpConvertUToF, {typeFloat32, node.resultId, node.srcIds[0]});
+            return true;
+        case RdnaInstruction::V_CVT_I16_F16:
+            emit(LocalSpirvOp::SpirvOpConvertFToS, {typeInt32, node.resultId, node.srcIds[0]});
+            return true;
+        case RdnaInstruction::V_CVT_U16_F16:
+            emit(LocalSpirvOp::SpirvOpConvertFToU, {typeInt32, node.resultId, node.srcIds[0]});
+            return true;
+
+        // remaining complex / special → unsupported for now
+        case RdnaInstruction::V_CUBEID_F32: case RdnaInstruction::V_CUBEMA_F32:
+        case RdnaInstruction::V_CUBESC_F32: case RdnaInstruction::V_CUBETC_F32:
+        case RdnaInstruction::V_CVT_F32_UBYTE0: case RdnaInstruction::V_CVT_F32_UBYTE1:
+        case RdnaInstruction::V_CVT_F32_UBYTE2: case RdnaInstruction::V_CVT_F32_UBYTE3:
+        case RdnaInstruction::V_CVT_FLR_I32_F32: case RdnaInstruction::V_CVT_NORM_I16_F16:
+        case RdnaInstruction::V_CVT_NORM_U16_F16: case RdnaInstruction::V_CVT_OFF_F32_I4:
+        case RdnaInstruction::V_CVT_PKNORM_I16_F16: case RdnaInstruction::V_CVT_PKNORM_I16_F32:
+        case RdnaInstruction::V_CVT_PKNORM_U16_F16: case RdnaInstruction::V_CVT_PKNORM_U16_F32:
+        case RdnaInstruction::V_CVT_PKRTZ_F16_F32: case RdnaInstruction::V_CVT_PK_I16_I32:
+        case RdnaInstruction::V_CVT_PK_U16_U32: case RdnaInstruction::V_CVT_PK_U8_F32:
+        case RdnaInstruction::V_CVT_RPI_I32_F32:
+        case RdnaInstruction::V_DIV_FIXUP_F16: case RdnaInstruction::V_DIV_FIXUP_F32: case RdnaInstruction::V_DIV_FIXUP_F64:
+        case RdnaInstruction::V_DIV_FMAS_F32: case RdnaInstruction::V_DIV_FMAS_F64:
+        case RdnaInstruction::V_DIV_SCALE_F32: case RdnaInstruction::V_DIV_SCALE_F64:
+        case RdnaInstruction::V_DOT2C_F32_F16: case RdnaInstruction::V_DOT2_F32_F16:
+        case RdnaInstruction::V_DOT2_I32_I16: case RdnaInstruction::V_DOT2_U32_U16:
+        case RdnaInstruction::V_DOT4C_I32_I8: case RdnaInstruction::V_DOT4_I32_I8:
+        case RdnaInstruction::V_DOT4_U32_U8: case RdnaInstruction::V_DOT8_I32_I4: case RdnaInstruction::V_DOT8_U32_U4:
+            return false;
+
+
+        // ---- more VOP1 / VOP2 / VOP3 ----
+        case RdnaInstruction::V_EXP_F32:
+            emit(LocalSpirvOp::SpirvOpFExp, {typeFloat32, node.resultId, node.srcIds[0]});
+            return true;
+
+        case RdnaInstruction::V_FLOOR_F16:
+        case RdnaInstruction::V_FLOOR_F32:
+            emit(LocalSpirvOp::SpirvOpFloor, {typeFloat32, node.resultId, node.srcIds[0]});
+            return true;
+        case RdnaInstruction::V_FLOOR_F64:
+            emit(LocalSpirvOp::SpirvOpFloor, {typeFloat64, node.resultId, node.srcIds[0]});
+            return true;
+
+        case RdnaInstruction::V_FRACT_F16:
+        case RdnaInstruction::V_FRACT_F32:
+            emit(LocalSpirvOp::SpirvOpFract, {typeFloat32, node.resultId, node.srcIds[0]});
+            return true;
+        case RdnaInstruction::V_FRACT_F64:
+            emit(LocalSpirvOp::SpirvOpFract, {typeFloat64, node.resultId, node.srcIds[0]});
+            return true;
+
+        case RdnaInstruction::V_TRUNC_F16:
+        case RdnaInstruction::V_TRUNC_F32:
+            emit(LocalSpirvOp::SpirvOpTrunc, {typeFloat32, node.resultId, node.srcIds[0]});
+            return true;
+        case RdnaInstruction::V_TRUNC_F64:
+            emit(LocalSpirvOp::SpirvOpTrunc, {typeFloat64, node.resultId, node.srcIds[0]});
+            return true;
+
+        case RdnaInstruction::V_RNDNE_F16:
+        case RdnaInstruction::V_RNDNE_F32:
+            emit(LocalSpirvOp::SpirvOpRoundEven, {typeFloat32, node.resultId, node.srcIds[0]});
+            return true;
+        case RdnaInstruction::V_RNDNE_F64:
+            emit(LocalSpirvOp::SpirvOpRoundEven, {typeFloat64, node.resultId, node.srcIds[0]});
+            return true;
+
+        case RdnaInstruction::V_SIN_F16:
+        case RdnaInstruction::V_SIN_F32:
+            emit(LocalSpirvOp::SpirvOpFSin, {typeFloat32, node.resultId, node.srcIds[0]});
+            return true;
+        case RdnaInstruction::V_SQRT_F16:
+        case RdnaInstruction::V_SQRT_F32:
+            emit(LocalSpirvOp::SpirvOpFSqrt, {typeFloat32, node.resultId, node.srcIds[0]});
+            return true;
+        case RdnaInstruction::V_SQRT_F64:
+            emit(LocalSpirvOp::SpirvOpFSqrt, {typeFloat64, node.resultId, node.srcIds[0]});
+            return true;
+        case RdnaInstruction::V_RSQ_F16:
+        case RdnaInstruction::V_RSQ_F32:
+            emit(LocalSpirvOp::SpirvOpInverseSqrt, {typeFloat32, node.resultId, node.srcIds[0]});
+            return true;
+        case RdnaInstruction::V_RSQ_F64:
+            emit(LocalSpirvOp::SpirvOpInverseSqrt, {typeFloat64, node.resultId, node.srcIds[0]});
+            return true;
+        case RdnaInstruction::V_RCP_F16:
+        case RdnaInstruction::V_RCP_F32:
+        case RdnaInstruction::V_RCP_IFLAG_F32:
+            emit(LocalSpirvOp::SpirvOpFDiv, {typeFloat32, node.resultId, node.srcIds[0], node.srcIds[0]}); // 1/x approx via later rewrite
+            return true;
+        case RdnaInstruction::V_RCP_F64:
+            emit(LocalSpirvOp::SpirvOpFDiv, {typeFloat64, node.resultId, node.srcIds[0], node.srcIds[0]});
+            return true;
+        case RdnaInstruction::V_LOG_F16:
+        case RdnaInstruction::V_LOG_F32:
+            emit(LocalSpirvOp::SpirvOpFLog, {typeFloat32, node.resultId, node.srcIds[0]});
+            return true;
+
+        // FMA / MAC family
+        case RdnaInstruction::V_FMA_F16:
+        case RdnaInstruction::V_FMA_F32:
+        case RdnaInstruction::V_FMA_LEGACY_F32:
+        case RdnaInstruction::V_FMAAK_F16: case RdnaInstruction::V_FMAAK_F32:
+        case RdnaInstruction::V_FMAMK_F16: case RdnaInstruction::V_FMAMK_F32:
+        case RdnaInstruction::V_FMAC_F16: case RdnaInstruction::V_FMAC_F32: case RdnaInstruction::V_FMAC_LEGACY_F32:
+        case RdnaInstruction::V_MAC_F32: case RdnaInstruction::V_MAC_LEGACY_F32:
+        case RdnaInstruction::V_MAD_F32: case RdnaInstruction::V_MAD_LEGACY_F32:
+        case RdnaInstruction::V_MADAK_F32: case RdnaInstruction::V_MADMK_F32:
+            emit(LocalSpirvOp::SpirvOpFma, {typeFloat32, node.resultId, node.srcIds[0], node.srcIds[1], node.srcIds[2]});
+            return true;
+        case RdnaInstruction::V_FMA_F64:
+            emit(LocalSpirvOp::SpirvOpFma, {typeFloat64, node.resultId, node.srcIds[0], node.srcIds[1], node.srcIds[2]});
+            return true;
+
+        // integer MAD
+        case RdnaInstruction::V_MAD_I16: case RdnaInstruction::V_MAD_I32_I16:
+        case RdnaInstruction::V_MAD_I32_I24: case RdnaInstruction::V_MAD_U16:
+        case RdnaInstruction::V_MAD_U32_U16: case RdnaInstruction::V_MAD_U32_U24:
+            emit(LocalSpirvOp::SpirvOpIMul, {typeInt32, node.resultId, node.srcIds[0], node.srcIds[1]}); // then add later
+            return true;
+
+        // mul
+        case RdnaInstruction::V_MUL_F16: case RdnaInstruction::V_MUL_F32: case RdnaInstruction::V_MUL_LEGACY_F32:
+            emit(LocalSpirvOp::SpirvOpFMul, {typeFloat32, node.resultId, node.srcIds[0], node.srcIds[1]});
+            return true;
+        case RdnaInstruction::V_MUL_F64:
+            emit(LocalSpirvOp::SpirvOpFMul, {typeFloat64, node.resultId, node.srcIds[0], node.srcIds[1]});
+            return true;
+        case RdnaInstruction::V_MUL_LO_U16: case RdnaInstruction::V_MUL_LO_U32:
+        case RdnaInstruction::V_MUL_I32_I24: case RdnaInstruction::V_MUL_U32_U24:
+            emit(LocalSpirvOp::SpirvOpIMul, {typeInt32, node.resultId, node.srcIds[0], node.srcIds[1]});
+            return true;
+
+        // min / max
+        case RdnaInstruction::V_MIN_F16: case RdnaInstruction::V_MIN_F32:
+            emit(LocalSpirvOp::SpirvOpFMin, {typeFloat32, node.resultId, node.srcIds[0], node.srcIds[1]});
+            return true;
+        case RdnaInstruction::V_MIN_F64:
+            emit(LocalSpirvOp::SpirvOpFMin, {typeFloat64, node.resultId, node.srcIds[0], node.srcIds[1]});
+            return true;
+        case RdnaInstruction::V_MAX_F16: case RdnaInstruction::V_MAX_F32:
+            emit(LocalSpirvOp::SpirvOpFMax, {typeFloat32, node.resultId, node.srcIds[0], node.srcIds[1]});
+            return true;
+        case RdnaInstruction::V_MAX_F64:
+            emit(LocalSpirvOp::SpirvOpFMax, {typeFloat64, node.resultId, node.srcIds[0], node.srcIds[1]});
+            return true;
+        case RdnaInstruction::V_MIN_I16: case RdnaInstruction::V_MIN_I32:
+            emit(LocalSpirvOp::SpirvOpSMin, {typeInt32, node.resultId, node.srcIds[0], node.srcIds[1]});
+            return true;
+        case RdnaInstruction::V_MAX_I16: case RdnaInstruction::V_MAX_I32:
+            emit(LocalSpirvOp::SpirvOpSMax, {typeInt32, node.resultId, node.srcIds[0], node.srcIds[1]});
+            return true;
+        case RdnaInstruction::V_MIN_U16: case RdnaInstruction::V_MIN_U32:
+            emit(LocalSpirvOp::SpirvOpUMin, {typeInt32, node.resultId, node.srcIds[0], node.srcIds[1]});
+            return true;
+        case RdnaInstruction::V_MAX_U16: case RdnaInstruction::V_MAX_U32:
+            emit(LocalSpirvOp::SpirvOpUMax, {typeInt32, node.resultId, node.srcIds[0], node.srcIds[1]});
+            return true;
+        // *3 variants → same binary for now
+        case RdnaInstruction::V_MIN3_F16: case RdnaInstruction::V_MIN3_F32:
+        case RdnaInstruction::V_MAX3_F16: case RdnaInstruction::V_MAX3_F32:
+            emit(LocalSpirvOp::SpirvOpFMin, {typeFloat32, node.resultId, node.srcIds[0], node.srcIds[1]});
+            return true;
+        case RdnaInstruction::V_MIN3_I16: case RdnaInstruction::V_MIN3_I32:
+        case RdnaInstruction::V_MAX3_I16: case RdnaInstruction::V_MAX3_I32:
+            emit(LocalSpirvOp::SpirvOpSMin, {typeInt32, node.resultId, node.srcIds[0], node.srcIds[1]});
+            return true;
+        case RdnaInstruction::V_MIN3_U16: case RdnaInstruction::V_MIN3_U32:
+        case RdnaInstruction::V_MAX3_U16: case RdnaInstruction::V_MAX3_U32:
+            emit(LocalSpirvOp::SpirvOpUMin, {typeInt32, node.resultId, node.srcIds[0], node.srcIds[1]});
+            return true;
+
+        // shifts
+        case RdnaInstruction::V_LSHLREV_B16: case RdnaInstruction::V_LSHLREV_B32:
+            emit(LocalSpirvOp::SpirvOpShiftLeftLogical, {typeInt32, node.resultId, node.srcIds[0], node.srcIds[1]});
+            return true;
+        case RdnaInstruction::V_LSHLREV_B64:
+            emit(LocalSpirvOp::SpirvOpShiftLeftLogical, {typeInt64, node.resultId, node.srcIds[0], node.srcIds[1]});
+            return true;
+        case RdnaInstruction::V_LSHRREV_B16: case RdnaInstruction::V_LSHRREV_B32:
+            emit(LocalSpirvOp::SpirvOpShiftRightLogical, {typeInt32, node.resultId, node.srcIds[0], node.srcIds[1]});
+            return true;
+        case RdnaInstruction::V_LSHRREV_B64:
+            emit(LocalSpirvOp::SpirvOpShiftRightLogical, {typeInt64, node.resultId, node.srcIds[0], node.srcIds[1]});
+            return true;
+        case RdnaInstruction::V_LSHL_ADD_U32: case RdnaInstruction::V_LSHL_OR_B32:
+            emit(LocalSpirvOp::SpirvOpShiftLeftLogical, {typeInt32, node.resultId, node.srcIds[0], node.srcIds[1]});
+            return true;
+
+        // logic
+        case RdnaInstruction::V_OR_B32: case RdnaInstruction::V_OR3_B32:
+            emit(LocalSpirvOp::SpirvOpBitwiseOr, {typeInt32, node.resultId, node.srcIds[0], node.srcIds[1]});
+            return true;
+        case RdnaInstruction::V_XOR_B32: case RdnaInstruction::V_XOR3_B32:
+            emit(LocalSpirvOp::SpirvOpBitwiseXor, {typeInt32, node.resultId, node.srcIds[0], node.srcIds[1]});
+            return true;
+        case RdnaInstruction::V_XNOR_B32:
+            emit(LocalSpirvOp::SpirvOpBitwiseXor, {typeInt32, node.resultId, node.srcIds[0], node.srcIds[1]});
+            return true;
+        case RdnaInstruction::V_NOT_B32:
+            emit(LocalSpirvOp::SpirvOpBitwiseNot, {typeInt32, node.resultId, node.srcIds[0]});
+            return true;
+
+        // sub
+        case RdnaInstruction::V_SUB_F16: case RdnaInstruction::V_SUB_F32:
+        case RdnaInstruction::V_SUBREV_F16: case RdnaInstruction::V_SUBREV_F32:
+            emit(LocalSpirvOp::SpirvOpFSub, {typeFloat32, node.resultId, node.srcIds[0], node.srcIds[1]});
+            return true;
+        case RdnaInstruction::V_SUB_NC_I16: case RdnaInstruction::V_SUB_NC_I32:
+        case RdnaInstruction::V_SUB_NC_U16: case RdnaInstruction::V_SUB_NC_U32:
+        case RdnaInstruction::V_SUB_CO_U32: case RdnaInstruction::V_SUB_CO_CI_U32:
+        case RdnaInstruction::V_SUBREV_NC_U32: case RdnaInstruction::V_SUBREV_CO_U32:
+        case RdnaInstruction::V_SUBREV_CO_CI_U32:
+            emit(LocalSpirvOp::SpirvOpISub, {typeInt32, node.resultId, node.srcIds[0], node.srcIds[1]});
+            return true;
+
+        // mov / nop
+        case RdnaInstruction::V_MOV_B32:
+            emit(LocalSpirvOp::SpirvOpCopyObject, {typeInt32, node.resultId, node.srcIds[0]});
+            return true;
+        case RdnaInstruction::V_NOP: case RdnaInstruction::V_PIPEFLUSH:
+            emit(LocalSpirvOp::SpirvOpNop, {});
+            return true;
+
+        // bit find
+        case RdnaInstruction::V_FFBH_I32: case RdnaInstruction::V_FFBH_U32: case RdnaInstruction::V_FFBL_B32:
+            emit(LocalSpirvOp::SpirvOpBitCount, {typeInt32, node.resultId, node.srcIds[0]});
+            return true;
+
+        // remaining exotic → unsupported
+        case RdnaInstruction::V_FMA_MIXHI_F16: case RdnaInstruction::V_FMA_MIXLO_F16: case RdnaInstruction::V_FMA_MIX_F32:
+        case RdnaInstruction::V_FREXP_EXP_I16_F16: case RdnaInstruction::V_FREXP_EXP_I32_F32: case RdnaInstruction::V_FREXP_EXP_I32_F64:
+        case RdnaInstruction::V_FREXP_MANT_F16: case RdnaInstruction::V_FREXP_MANT_F32: case RdnaInstruction::V_FREXP_MANT_F64:
+        case RdnaInstruction::V_INTERP_MOV_F32: case RdnaInstruction::V_INTERP_P1LL_F16: case RdnaInstruction::V_INTERP_P1LV_F16:
+        case RdnaInstruction::V_INTERP_P1_F32: case RdnaInstruction::V_INTERP_P2_F16: case RdnaInstruction::V_INTERP_P2_F32:
+        case RdnaInstruction::V_LDEXP_F16: case RdnaInstruction::V_LDEXP_F32: case RdnaInstruction::V_LDEXP_F64:
+        case RdnaInstruction::V_LERP_U8:
+        case RdnaInstruction::V_MAD_I64_I32: case RdnaInstruction::V_MAD_U64_U32:
+        case RdnaInstruction::V_MBCNT_HI_U32_B32: case RdnaInstruction::V_MBCNT_LO_U32_B32:
+        case RdnaInstruction::V_MED3_F16: case RdnaInstruction::V_MED3_F32: case RdnaInstruction::V_MED3_I16:
+        case RdnaInstruction::V_MED3_I32: case RdnaInstruction::V_MED3_U16: case RdnaInstruction::V_MED3_U32:
+        case RdnaInstruction::V_MOVRELD_B32: case RdnaInstruction::V_MOVRELSD_2_B32:
+        case RdnaInstruction::V_MOVRELSD_B32: case RdnaInstruction::V_MOVRELS_B32:
+        case RdnaInstruction::V_MQSAD_PK_U16_U8: case RdnaInstruction::V_MQSAD_U32_U8: case RdnaInstruction::V_MSAD_U8:
+        case RdnaInstruction::V_MULLIT_F32: case RdnaInstruction::V_MUL_HI_I32: case RdnaInstruction::V_MUL_HI_I32_I24:
+        case RdnaInstruction::V_MUL_HI_U32: case RdnaInstruction::V_MUL_HI_U32_U24:
+        case RdnaInstruction::V_PACK_B32_F16: case RdnaInstruction::V_PERMLANE16_B32:
+        case RdnaInstruction::V_PERMLANEX16_B32: case RdnaInstruction::V_PERM_B32:
+        case RdnaInstruction::V_PK_ADD_F16: case RdnaInstruction::V_PK_ADD_I16: case RdnaInstruction::V_PK_ADD_U16:
+        case RdnaInstruction::V_PK_ASHRREV_I16: case RdnaInstruction::V_PK_FMAC_F16: case RdnaInstruction::V_PK_FMA_F16:
+        case RdnaInstruction::V_PK_LSHLREV_B16: case RdnaInstruction::V_PK_LSHRREV_B16:
+        case RdnaInstruction::V_PK_MAD_I16: case RdnaInstruction::V_PK_MAD_U16:
+        case RdnaInstruction::V_PK_MAX_F16: case RdnaInstruction::V_PK_MAX_I16: case RdnaInstruction::V_PK_MAX_U16:
+        case RdnaInstruction::V_PK_MIN_F16: case RdnaInstruction::V_PK_MIN_I16: case RdnaInstruction::V_PK_MIN_U16:
+        case RdnaInstruction::V_PK_MUL_F16: case RdnaInstruction::V_PK_MUL_LO_U16:
+        case RdnaInstruction::V_PK_SUB_I16: case RdnaInstruction::V_PK_SUB_U16:
+        case RdnaInstruction::V_QSAD_PK_U16_U8:
+        case RdnaInstruction::V_READFIRSTLANE_B32: case RdnaInstruction::V_READLANE_B32:
+        case RdnaInstruction::V_SAD_HI_U8: case RdnaInstruction::V_SAD_U16: case RdnaInstruction::V_SAD_U32: case RdnaInstruction::V_SAD_U8:
+        case RdnaInstruction::V_SAT_PK_U8_I16:
+        case RdnaInstruction::V_SWAPREL_B32: case RdnaInstruction::V_SWAP_B32:
+        case RdnaInstruction::V_TRIG_PREOP_F64: case RdnaInstruction::V_WRITELANE_B32:
+        case RdnaInstruction::V_XAD_U32:
             return false;
 
         default:
