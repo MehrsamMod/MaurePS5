@@ -17,6 +17,7 @@ Shaders translated: 1166/1166
 
 Syscalls translated: 52/723
 
+No game can boot yet in the translation layer.
 ## Legal
 
 This project does not include, distribute, or require any game, firmware, encryption keys, or other copyrighted files from Sony or anyone else. Use it only with games you own and obtained legally. Please do not ask for or share game files, keys, or shader dumps in this project.
