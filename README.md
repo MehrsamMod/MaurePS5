@@ -11,9 +11,11 @@ Main platform for MaurePS5 is Windows. More platforms such as **Linux, MacOS or 
 
 ## Status
 
-MaurePS5 has a **command processor, memory tracker, shader recompiler(just a small backend) and a tiled memory too linear memory**. More code will be added soon.
+MaurePS5 has a **command processor, memory tracker, syscall layer, shader recompiler(just a small backend) and a tiled memory to linear memory**. More code will be added soon.
 
 Shaders translated: 1166/1166
+
+Syscalls translated: 52/723
 
 ## Legal
 
