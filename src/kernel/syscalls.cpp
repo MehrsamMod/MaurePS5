@@ -549,6 +549,580 @@ int64_t sys_getlogin(SyscallContext& ctx, uint64_t buf_va, uint64_t len) {
     return 0;
 }
 
+
+int64_t sys_sigaltstack(SyscallContext&, uint64_t, uint64_t) {
+    return -ENOSYS;
+}
+
+int64_t sys_ioctl(SyscallContext&, uint64_t, uint64_t, uint64_t) {
+    return -ENOSYS;
+}
+
+int64_t sys_reboot(SyscallContext&, uint64_t) {
+    return -ENOSYS;
+}
+
+int64_t sys_revoke(SyscallContext& ctx, uint64_t path_va) {
+    (void)ctx;
+    (void)path_va;
+    return -ENOSYS;
+}
+
+int64_t sys_symlink(SyscallContext& ctx, uint64_t target_va, uint64_t link_va) {
+    std::string target = read_guest_string(ctx, target_va);
+    std::string linkpath = host_path(ctx, read_guest_string(ctx, link_va));
+    if (target.empty() || linkpath.empty())
+        return -EFAULT;
+#if defined(_WIN32)
+    // Prefer symbolic link; may require privilege — fall back ENOSYS on failure path details
+    if (CreateSymbolicLinkA(linkpath.c_str(), target.c_str(), 0))
+        return 0;
+    return win_err();
+#else
+    if (::symlink(target.c_str(), linkpath.c_str()) < 0)
+        return -errno;
+    return 0;
+#endif
+}
+
+int64_t sys_readlink(SyscallContext& ctx, uint64_t path_va, uint64_t buf_va, uint64_t bufsiz) {
+    std::string path = host_path(ctx, read_guest_string(ctx, path_va));
+    if (path.empty() || !buf_va || !bufsiz)
+        return -EFAULT;
+#if defined(_WIN32)
+    (void)path;
+    return -ENOSYS;
+#else
+    std::vector<char> tmp(static_cast<size_t>(bufsiz));
+    ssize_t r = ::readlink(path.c_str(), tmp.data(), tmp.size());
+    if (r < 0)
+        return -errno;
+    if (!write_guest(ctx, buf_va, tmp.data(), static_cast<size_t>(r)))
+        return -EFAULT;
+    return static_cast<int64_t>(r);
+#endif
+}
+
+int64_t sys_execve(SyscallContext&, uint64_t, uint64_t, uint64_t) {
+    return -ENOSYS;
+}
+
+int64_t sys_umask(SyscallContext&, uint64_t mask) {
+#if defined(_WIN32)
+    (void)mask;
+    return 0;
+#else
+    return static_cast<int64_t>(::umask(static_cast<mode_t>(mask)));
+#endif
+}
+
+int64_t sys_chroot(SyscallContext& ctx, uint64_t path_va) {
+    std::string path = host_path(ctx, read_guest_string(ctx, path_va));
+    if (path.empty())
+        return -EFAULT;
+#if defined(_WIN32)
+    (void)path;
+    return -ENOSYS;
+#else
+    if (::chroot(path.c_str()) < 0)
+        return -errno;
+    return 0;
+#endif
+}
+
+int64_t sys_fstat(SyscallContext& ctx, uint64_t fd, uint64_t buf_va) {
+    if (!buf_va)
+        return -EFAULT;
+#if defined(_WIN32)
+    (void)fd;
+    uint8_t zero[256]{};
+    if (!write_guest(ctx, buf_va, zero, sizeof(zero)))
+        return -EFAULT;
+    return 0;
+#else
+    struct stat st{};
+    if (::fstat(static_cast<int>(fd), &st) < 0)
+        return -errno;
+    if (!write_guest(ctx, buf_va, &st, sizeof(st)))
+        return -EFAULT;
+    return 0;
+#endif
+}
+
+int64_t sys_getkerninfo(SyscallContext&, uint64_t, uint64_t, uint64_t, uint64_t) {
+    return -ENOSYS;
+}
+
+int64_t sys_getpagesize(SyscallContext&) {
+    return 4096;
+}
+
+
+int64_t sys_msync(SyscallContext& ctx, uint64_t addr, uint64_t len, uint64_t flags) {
+    (void)ctx;
+    (void)addr;
+    (void)len;
+    (void)flags;
+    // No host backing required for simple guest RAM; treat as success.
+    return 0;
+}
+
+int64_t sys_vfork(SyscallContext&) {
+    return -ENOSYS;
+}
+
+int64_t sys_obs_vread(SyscallContext&) { return -ENOSYS; }
+int64_t sys_obs_vwrite(SyscallContext&) { return -ENOSYS; }
+
+int64_t sys_sbrk(SyscallContext&, uint64_t) {
+    return -ENOSYS;
+}
+
+int64_t sys_sstk(SyscallContext&, uint64_t) {
+    return -ENOSYS;
+}
+
+int64_t sys_mmap(SyscallContext& ctx, uint64_t addr, uint64_t len, uint64_t prot,
+                 uint64_t flags, uint64_t fd, uint64_t pos) {
+    (void)ctx;
+    (void)addr;
+    (void)len;
+    (void)prot;
+    (void)flags;
+    (void)fd;
+    (void)pos;
+    // Real emulator should allocate guest VA via memory manager.
+    // Return ENOSYS until your Memory::map is wired.
+    return -ENOSYS;
+}
+
+int64_t sys_munmap(SyscallContext& ctx, uint64_t addr, uint64_t len) {
+    (void)ctx;
+    (void)addr;
+    (void)len;
+    return -ENOSYS;
+}
+
+int64_t sys_mprotect(SyscallContext& ctx, uint64_t addr, uint64_t len, uint64_t prot) {
+    (void)ctx;
+    (void)addr;
+    (void)len;
+    (void)prot;
+    return 0; // ignore until page-prot tracking exists
+}
+
+int64_t sys_madvise(SyscallContext& ctx, uint64_t addr, uint64_t len, uint64_t behav) {
+    (void)ctx;
+    (void)addr;
+    (void)len;
+    (void)behav;
+    return 0;
+}
+
+int64_t sys_obs_vhangup(SyscallContext&) { return -ENOSYS; }
+int64_t sys_obs_vlimit(SyscallContext&) { return -ENOSYS; }
+
+
+int64_t sys_mincore(SyscallContext& ctx, uint64_t addr, uint64_t len, uint64_t vec_va) {
+    if (!vec_va || !len)
+        return -EFAULT;
+    // Report all pages resident.
+    size_t pages = (static_cast<size_t>(len) + 4095) / 4096;
+    std::vector<uint8_t> vec(pages, 1);
+    if (!write_guest(ctx, vec_va, vec.data(), pages))
+        return -EFAULT;
+    (void)addr;
+    return 0;
+}
+
+int64_t sys_getgroups(SyscallContext& ctx, uint64_t gidsetsize, uint64_t gidset_va) {
+#if defined(_WIN32)
+    if (gidsetsize == 0)
+        return 1;
+    if (!gidset_va)
+        return -EFAULT;
+    uint32_t gid = 0;
+    if (!write_guest(ctx, gidset_va, &gid, sizeof(gid)))
+        return -EFAULT;
+    return 1;
+#else
+    if (gidsetsize == 0)
+        return static_cast<int64_t>(::getgroups(0, nullptr));
+    std::vector<gid_t> gids(static_cast<size_t>(gidsetsize));
+    int n = ::getgroups(static_cast<int>(gidsetsize), gids.data());
+    if (n < 0)
+        return -errno;
+    if (n > 0 && !write_guest(ctx, gidset_va, gids.data(), sizeof(gid_t) * static_cast<size_t>(n)))
+        return -EFAULT;
+    return n;
+#endif
+}
+
+int64_t sys_setgroups(SyscallContext&, uint64_t, uint64_t) {
+    return 0;
+}
+
+int64_t sys_getpgrp(SyscallContext&) {
+#if defined(_WIN32)
+    return static_cast<int64_t>(GetCurrentProcessId());
+#else
+    return static_cast<int64_t>(::getpgrp());
+#endif
+}
+
+int64_t sys_setpgid(SyscallContext&, uint64_t, uint64_t) {
+    return 0;
+}
+
+int64_t sys_setitimer(SyscallContext&, uint64_t, uint64_t, uint64_t) {
+    return -ENOSYS;
+}
+
+int64_t sys_compat_wait(SyscallContext&, uint64_t) {
+    return -ENOSYS;
+}
+
+int64_t sys_swapon(SyscallContext&, uint64_t, uint64_t) {
+    return -ENOSYS;
+}
+
+int64_t sys_getitimer(SyscallContext&, uint64_t, uint64_t) {
+    return -ENOSYS;
+}
+
+int64_t sys_gethostname(SyscallContext& ctx, uint64_t buf_va, uint64_t len) {
+    if (!buf_va || !len)
+        return -EFAULT;
+    char name[256] = "maureps5";
+#if defined(_WIN32)
+    DWORD n = sizeof(name);
+    GetComputerNameA(name, &n);
+#else
+    if (::gethostname(name, sizeof(name)) != 0)
+        std::strncpy(name, "maureps5", sizeof(name) - 1);
+#endif
+    size_t copy = std::strlen(name);
+    if (copy >= static_cast<size_t>(len))
+        copy = static_cast<size_t>(len) - 1;
+    std::vector<char> out(static_cast<size_t>(len), 0);
+    std::memcpy(out.data(), name, copy);
+    if (!write_guest(ctx, buf_va, out.data(), static_cast<size_t>(len)))
+        return -EFAULT;
+    return 0;
+}
+
+int64_t sys_sethostname(SyscallContext&, uint64_t, uint64_t) {
+    return -EPERM;
+}
+
+
+int64_t sys_getdtablesize(SyscallContext&) {
+#if defined(_WIN32)
+    return 1024;
+#else
+    return static_cast<int64_t>(::getdtablesize());
+#endif
+}
+
+int64_t sys_dup2(SyscallContext&, uint64_t oldfd, uint64_t newfd) {
+#if defined(_WIN32)
+    if (oldfd == newfd)
+        return static_cast<int64_t>(newfd);
+    HANDLE h = fd_to_handle(static_cast<int>(oldfd));
+    if (h == INVALID_HANDLE_VALUE)
+        return -EBADF;
+    // Simple: close target slot if used, duplicate into that index if free path
+    if (newfd < 3)
+        return -EINVAL;
+    if (newfd >= 1024)
+        return -EBADF;
+    if (g_fd_used[static_cast<int>(newfd)]) {
+        CloseHandle(g_fds[static_cast<int>(newfd)]);
+        free_fd(static_cast<int>(newfd));
+    }
+    HANDLE proc = GetCurrentProcess();
+    HANDLE duped = nullptr;
+    if (!DuplicateHandle(proc, h, proc, &duped, 0, FALSE, DUPLICATE_SAME_ACCESS))
+        return win_err();
+    g_fd_used[static_cast<int>(newfd)] = true;
+    g_fds[static_cast<int>(newfd)] = duped;
+    return static_cast<int64_t>(newfd);
+#else
+    int r = ::dup2(static_cast<int>(oldfd), static_cast<int>(newfd));
+    if (r < 0)
+        return -errno;
+    return r;
+#endif
+}
+
+int64_t sys_fcntl(SyscallContext&, uint64_t fd, uint64_t cmd, uint64_t arg) {
+#if defined(_WIN32)
+    (void)fd;
+    (void)cmd;
+    (void)arg;
+    return 0;
+#else
+    int r = ::fcntl(static_cast<int>(fd), static_cast<int>(cmd), static_cast<int>(arg));
+    if (r < 0)
+        return -errno;
+    return r;
+#endif
+}
+
+int64_t sys_select(SyscallContext&, uint64_t, uint64_t, uint64_t, uint64_t, uint64_t) {
+    return -ENOSYS;
+}
+
+int64_t sys_fsync(SyscallContext&, uint64_t fd) {
+#if defined(_WIN32)
+    HANDLE h = fd_to_handle(static_cast<int>(fd));
+    if (h == INVALID_HANDLE_VALUE)
+        return -EBADF;
+    if (!FlushFileBuffers(h))
+        return win_err();
+    return 0;
+#else
+    if (::fsync(static_cast<int>(fd)) < 0)
+        return -errno;
+    return 0;
+#endif
+}
+
+int64_t sys_setpriority(SyscallContext&, uint64_t, uint64_t, uint64_t) {
+    return 0;
+}
+
+int64_t sys_getpriority(SyscallContext&, uint64_t, uint64_t) {
+    return 0;
+}
+
+int64_t sys_socket(SyscallContext&, uint64_t, uint64_t, uint64_t) {
+    return -ENOSYS;
+}
+
+int64_t sys_connect(SyscallContext&, uint64_t, uint64_t, uint64_t) {
+    return -ENOSYS;
+}
+
+int64_t sys_netcontrol(SyscallContext&, uint64_t, uint64_t, uint64_t, uint64_t) {
+    return -ENOSYS;
+}
+
+int64_t sys_netabort(SyscallContext&, uint64_t, uint64_t) {
+    return -ENOSYS;
+}
+
+int64_t sys_netgetsockinfo(SyscallContext&, uint64_t, uint64_t) {
+    return -ENOSYS;
+}
+
+int64_t sys_sigreturn(SyscallContext&, uint64_t) {
+    return -ENOSYS;
+}
+
+
+int64_t sys_bind(SyscallContext&, uint64_t, uint64_t, uint64_t) {
+    return -ENOSYS;
+}
+
+int64_t sys_setsockopt(SyscallContext&, uint64_t, uint64_t, uint64_t, uint64_t, uint64_t) {
+    return -ENOSYS;
+}
+
+int64_t sys_listen(SyscallContext&, uint64_t, uint64_t) {
+    return -ENOSYS;
+}
+
+int64_t sys_obs_vtimes(SyscallContext&) {
+    return -ENOSYS;
+}
+
+int64_t sys_sigvec(SyscallContext&, uint64_t, uint64_t, uint64_t) {
+    return -ENOSYS;
+}
+
+int64_t sys_sigblock(SyscallContext&, uint64_t) {
+    return -ENOSYS;
+}
+
+int64_t sys_sigsetmask(SyscallContext&, uint64_t) {
+    return -ENOSYS;
+}
+
+int64_t sys_sigsuspend(SyscallContext&, uint64_t) {
+    return -ENOSYS;
+}
+
+int64_t sys_sigstack(SyscallContext&, uint64_t, uint64_t) {
+    return -ENOSYS;
+}
+
+
+int64_t sys_socketex(SyscallContext&, uint64_t, uint64_t, uint64_t, uint64_t) {
+    return -ENOSYS;
+}
+
+int64_t sys_socketclose(SyscallContext& ctx, uint64_t fd) {
+    return sys_close(ctx, fd);
+}
+
+int64_t sys_obs_vtrace(SyscallContext&) {
+    return -ENOSYS;
+}
+
+int64_t sys_gettimeofday(SyscallContext& ctx, uint64_t tv_va, uint64_t tz_va) {
+    if (!tv_va)
+        return -EFAULT;
+#if defined(_WIN32)
+    FILETIME ft;
+    GetSystemTimeAsFileTime(&ft);
+    ULARGE_INTEGER uli;
+    uli.LowPart = ft.dwLowDateTime;
+    uli.HighPart = ft.dwHighDateTime;
+    // Windows epoch -> Unix-ish: 100ns since 1601 -> sec/usec since 1970
+    const uint64_t EPOCH_DIFF = 116444736000000000ULL;
+    uint64_t t = (uli.QuadPart - EPOCH_DIFF);
+    int64_t sec = static_cast<int64_t>(t / 10000000ULL);
+    int32_t usec = static_cast<int32_t>((t % 10000000ULL) / 10ULL);
+    int64_t tv[2] = {sec, static_cast<int64_t>(usec)};
+    if (!write_guest(ctx, tv_va, tv, sizeof(tv)))
+        return -EFAULT;
+#else
+    struct timeval tv{};
+    if (::gettimeofday(&tv, nullptr) != 0)
+        return -errno;
+    if (!write_guest(ctx, tv_va, &tv, sizeof(tv)))
+        return -EFAULT;
+#endif
+    if (tz_va) {
+        uint8_t zero[8]{};
+        write_guest(ctx, tz_va, zero, sizeof(zero));
+    }
+    return 0;
+}
+
+int64_t sys_getrusage(SyscallContext& ctx, uint64_t who, uint64_t usage_va) {
+    (void)who;
+    if (!usage_va)
+        return -EFAULT;
+    uint8_t zero[128]{};
+    if (!write_guest(ctx, usage_va, zero, sizeof(zero)))
+        return -EFAULT;
+    return 0;
+}
+
+int64_t sys_getsockopt(SyscallContext&, uint64_t, uint64_t, uint64_t, uint64_t, uint64_t) {
+    return -ENOSYS;
+}
+
+int64_t sys_readv(SyscallContext& ctx, uint64_t fd, uint64_t iov_va, uint64_t iovcnt) {
+    // Minimal: treat as single read of first iovec if we can parse 16-byte iovec {base,len}
+    if (!iov_va || !iovcnt)
+        return -EINVAL;
+    struct { uint64_t base; uint64_t len; } iov{};
+    if (!read_guest(ctx, iov_va, &iov, sizeof(iov)))
+        return -EFAULT;
+    return sys_read(ctx, fd, iov.base, iov.len);
+}
+
+int64_t sys_writev(SyscallContext& ctx, uint64_t fd, uint64_t iov_va, uint64_t iovcnt) {
+    if (!iov_va || !iovcnt)
+        return -EINVAL;
+    int64_t total = 0;
+    for (uint64_t i = 0; i < iovcnt && i < 64; ++i) {
+        struct { uint64_t base; uint64_t len; } iov{};
+        if (!read_guest(ctx, iov_va + i * sizeof(iov), &iov, sizeof(iov)))
+            return -EFAULT;
+        int64_t r = sys_write(ctx, fd, iov.base, iov.len);
+        if (r < 0)
+            return r;
+        total += r;
+        if (static_cast<uint64_t>(r) < iov.len)
+            break;
+    }
+    return total;
+}
+
+int64_t sys_settimeofday(SyscallContext&, uint64_t, uint64_t) {
+    return -EPERM;
+}
+
+int64_t sys_fchown(SyscallContext&, uint64_t, uint64_t, uint64_t) {
+    return 0;
+}
+
+int64_t sys_fchmod(SyscallContext&, uint64_t, uint64_t) {
+    return 0;
+}
+
+int64_t sys_netgetiflist(SyscallContext&, uint64_t, uint64_t) {
+    return -ENOSYS;
+}
+
+int64_t sys_setreuid(SyscallContext&, uint64_t, uint64_t) {
+    return 0;
+}
+
+int64_t sys_setregid(SyscallContext&, uint64_t, uint64_t) {
+    return 0;
+}
+
+int64_t sys_rename(SyscallContext& ctx, uint64_t from_va, uint64_t to_va) {
+    std::string from = host_path(ctx, read_guest_string(ctx, from_va));
+    std::string to = host_path(ctx, read_guest_string(ctx, to_va));
+    if (from.empty() || to.empty())
+        return -EFAULT;
+#if defined(_WIN32)
+    if (!MoveFileExA(from.c_str(), to.c_str(), MOVEFILE_REPLACE_EXISTING))
+        return win_err();
+    return 0;
+#else
+    if (::rename(from.c_str(), to.c_str()) < 0)
+        return -errno;
+    return 0;
+#endif
+}
+
+int64_t sys_truncate(SyscallContext& ctx, uint64_t path_va, uint64_t length) {
+    std::string path = host_path(ctx, read_guest_string(ctx, path_va));
+    if (path.empty())
+        return -EFAULT;
+#if defined(_WIN32)
+    HANDLE h = CreateFileA(path.c_str(), GENERIC_WRITE, 0, nullptr, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, nullptr);
+    if (h == INVALID_HANDLE_VALUE)
+        return win_err();
+    LARGE_INTEGER li;
+    li.QuadPart = static_cast<LONGLONG>(length);
+    if (!SetFilePointerEx(h, li, nullptr, FILE_BEGIN) || !SetEndOfFile(h)) {
+        CloseHandle(h);
+        return win_err();
+    }
+    CloseHandle(h);
+    return 0;
+#else
+    if (::truncate(path.c_str(), static_cast<off_t>(length)) < 0)
+        return -errno;
+    return 0;
+#endif
+}
+
+int64_t sys_ftruncate(SyscallContext&, uint64_t fd, uint64_t length) {
+#if defined(_WIN32)
+    HANDLE h = fd_to_handle(static_cast<int>(fd));
+    if (h == INVALID_HANDLE_VALUE)
+        return -EBADF;
+    LARGE_INTEGER li;
+    li.QuadPart = static_cast<LONGLONG>(length);
+    if (!SetFilePointerEx(h, li, nullptr, FILE_BEGIN) || !SetEndOfFile(h))
+        return win_err();
+    return 0;
+#else
+    if (::ftruncate(static_cast<int>(fd), static_cast<off_t>(length)) < 0)
+        return -errno;
+    return 0;
+#endif
+}
+
 int64_t enosys() { return -ENOSYS; }
 
 } // namespace
@@ -652,6 +1226,162 @@ int64_t dispatch_syscall(SyscallContext& ctx, uint32_t nr,
     case SYS_obsolete51:
     case SYS_compat_sigpending:
         return enosys();
+    case SYS_sigaltstack:
+        return sys_sigaltstack(ctx, a1, a2);
+    case SYS_ioctl:
+        return sys_ioctl(ctx, a1, a2, a3);
+    case SYS_reboot:
+        return sys_reboot(ctx, a1);
+    case SYS_revoke:
+        return sys_revoke(ctx, a1);
+    case SYS_symlink:
+        return sys_symlink(ctx, a1, a2);
+    case SYS_readlink:
+        return sys_readlink(ctx, a1, a2, a3);
+    case SYS_execve:
+        return sys_execve(ctx, a1, a2, a3);
+    case SYS_umask:
+        return sys_umask(ctx, a1);
+    case SYS_chroot:
+        return sys_chroot(ctx, a1);
+    case SYS_compat_fstat:
+        return sys_fstat(ctx, a1, a2);
+    case SYS_compat_getkerninfo:
+        return sys_getkerninfo(ctx, a1, a2, a3, a4);
+    case SYS_compat_getpagesize:
+        return sys_getpagesize(ctx);
+    case SYS_msync:
+        return sys_msync(ctx, a1, a2, a3);
+    case SYS_vfork:
+        return sys_vfork(ctx);
+    case SYS_obs_vread:
+        return sys_obs_vread(ctx);
+    case SYS_obs_vwrite:
+        return sys_obs_vwrite(ctx);
+    case SYS_sbrk:
+        return sys_sbrk(ctx, a1);
+    case SYS_sstk:
+        return sys_sstk(ctx, a1);
+    case SYS_compat_mmap:
+        return sys_mmap(ctx, a1, a2, a3, a4, a5, a6);
+    case SYS_obsolete72:
+        return enosys();
+    case SYS_munmap:
+        return sys_munmap(ctx, a1, a2);
+    case SYS_mprotect:
+        return sys_mprotect(ctx, a1, a2, a3);
+    case SYS_madvise:
+        return sys_madvise(ctx, a1, a2, a3);
+    case SYS_obs_vhangup:
+        return sys_obs_vhangup(ctx);
+    case SYS_obs_vlimit:
+        return sys_obs_vlimit(ctx);
+    case SYS_mincore:
+        return sys_mincore(ctx, a1, a2, a3);
+    case SYS_getgroups:
+        return sys_getgroups(ctx, a1, a2);
+    case SYS_setgroups:
+        return sys_setgroups(ctx, a1, a2);
+    case SYS_getpgrp:
+        return sys_getpgrp(ctx);
+    case SYS_setpgid:
+        return sys_setpgid(ctx, a1, a2);
+    case SYS_setitimer:
+        return sys_setitimer(ctx, a1, a2, a3);
+    case SYS_compat_wait:
+        return sys_compat_wait(ctx, a1);
+    case SYS_swapon:
+        return sys_swapon(ctx, a1, a2);
+    case SYS_getitimer:
+        return sys_getitimer(ctx, a1, a2);
+    case SYS_compat_gethostname:
+        return sys_gethostname(ctx, a1, a2);
+    case SYS_compat_sethostname:
+        return sys_sethostname(ctx, a1, a2);
+    case SYS_getdtablesize:
+        return sys_getdtablesize(ctx);
+    case SYS_dup2:
+        return sys_dup2(ctx, a1, a2);
+    case SYS_number91:
+        return enosys();
+    case SYS_fcntl:
+        return sys_fcntl(ctx, a1, a2, a3);
+    case SYS_select:
+        return sys_select(ctx, a1, a2, a3, a4, a5);
+    case SYS_number94:
+        return enosys();
+    case SYS_fsync:
+        return sys_fsync(ctx, a1);
+    case SYS_setpriority:
+        return sys_setpriority(ctx, a1, a2, a3);
+    case SYS_socket:
+        return sys_socket(ctx, a1, a2, a3);
+    case SYS_connect:
+        return sys_connect(ctx, a1, a2, a3);
+    case SYS_netcontrol:
+        return sys_netcontrol(ctx, a1, a2, a3, a4);
+    case SYS_getpriority:
+        return sys_getpriority(ctx, a1, a2);
+    case SYS_netabort:
+        return sys_netabort(ctx, a1, a2);
+    case SYS_netgetsockinfo:
+        return sys_netgetsockinfo(ctx, a1, a2);
+    case SYS_compat_sigreturn:
+        return sys_sigreturn(ctx, a1);
+    case SYS_bind:
+        return sys_bind(ctx, a1, a2, a3);
+    case SYS_setsockopt:
+        return sys_setsockopt(ctx, a1, a2, a3, a4, a5);
+    case SYS_listen:
+        return sys_listen(ctx, a1, a2);
+    case SYS_obs_vtimes:
+        return sys_obs_vtimes(ctx);
+    case SYS_compat_sigvec:
+        return sys_sigvec(ctx, a1, a2, a3);
+    case SYS_compat_sigblock:
+        return sys_sigblock(ctx, a1);
+    case SYS_compat_sigsetmask:
+        return sys_sigsetmask(ctx, a1);
+    case SYS_compat_sigsuspend:
+        return sys_sigsuspend(ctx, a1);
+    case SYS_compat_sigstack:
+        return sys_sigstack(ctx, a1, a2);
+    case SYS_socketex:
+        return sys_socketex(ctx, a1, a2, a3, a4);
+    case SYS_socketclose:
+        return sys_socketclose(ctx, a1);
+    case SYS_obs_vtrace:
+        return sys_obs_vtrace(ctx);
+    case SYS_gettimeofday:
+        return sys_gettimeofday(ctx, a1, a2);
+    case SYS_getrusage:
+        return sys_getrusage(ctx, a1, a2);
+    case SYS_getsockopt:
+        return sys_getsockopt(ctx, a1, a2, a3, a4, a5);
+    case SYS_number119:
+        return enosys();
+    case SYS_readv:
+        return sys_readv(ctx, a1, a2, a3);
+    case SYS_writev:
+        return sys_writev(ctx, a1, a2, a3);
+    case SYS_settimeofday:
+        return sys_settimeofday(ctx, a1, a2);
+    case SYS_fchown:
+        return sys_fchown(ctx, a1, a2, a3);
+    case SYS_fchmod:
+        return sys_fchmod(ctx, a1, a2);
+    case SYS_netgetiflist:
+        return sys_netgetiflist(ctx, a1, a2);
+    case SYS_setreuid:
+        return sys_setreuid(ctx, a1, a2);
+    case SYS_setregid:
+        return sys_setregid(ctx, a1, a2);
+    case SYS_rename:
+        return sys_rename(ctx, a1, a2);
+    case SYS_compat_truncate:
+        return sys_truncate(ctx, a1, a2);
+    case SYS_compat_ftruncate:
+        return sys_ftruncate(ctx, a1, a2);
     default:
         (void)a5;
         (void)a6;
