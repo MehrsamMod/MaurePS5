@@ -15,7 +15,7 @@ MaurePS5 has a **command processor, memory tracker, syscall layer, shader recomp
 
 Shaders translated: 1166/1166
 
-Syscalls translated: 52/723
+Syscalls translated: 131/723(most syscalls are stubs)
 
 No game can boot yet in the translation layer.
 ## Legal
